@@ -32,6 +32,8 @@ public class RegisterController {
 
     @PostMapping("/register")
     public R register(@RequestBody User user) {
-        return R.isSuccess().data(registerService.register(user));
+        registerService.register(user);
+
+        return R.isSuccess();
     }
 }

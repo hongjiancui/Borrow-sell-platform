@@ -37,7 +37,7 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public User register(User user) {
+    public void register(User user) {
         userMapper.register(user);
 
         //获取user表中刚创建的userID
@@ -70,7 +70,5 @@ public class RegisterServiceImpl implements RegisterService {
             dropShipper.setUserId(uid);
             dropShipperFeignService.addBvoInfo(dropShipper);
         }
-
-        return userMapper.getById(uid);
     }
 }
