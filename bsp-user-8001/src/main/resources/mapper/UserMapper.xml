@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.user.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.neusoft.bsp.user.entity.User">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="last_login" property="lastLogin"/>
+        <association property="role" javaType="com.neusoft.bsp.user.entity.Role">
+            <id property="roleId" column="role_id"/>
+            <result property="name" column="role_name"/>
+        </association>
+        <collection property="permissions" ofType="com.neusoft.bsp.user.entity.Permission">
+            <id property="permissionId" column="permission_id"/>
+            <result property="name" column="permission_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT
+	        u.user_id, username, password, u.name, email, phone, last_login,
+	        r.role_id, r.name role_name, p.permission_id, p.name permission_name
+        FROM
+	        user u
+		        JOIN user_role ur ON u.user_id = ur.user_id
+		        JOIN role r ON r.role_id = ur.role_id
+		        JOIN user_permission up ON u.user_id = up.user_id
+		        JOIN permission p ON up.permission_id = p.permission_id
+        WHERE
+	        u.user_id=#{pk};
+    </select>
+
+    <select id="getUserByUsername" resultMap="BaseResultMap">
+        SELECT
+	        u.user_id, username, password, u.name, email, phone, last_login,
+	        r.role_id, r.name role_name, p.permission_id, p.name permission_name
+        FROM
+	        user u
+		        JOIN user_role ur ON u.user_id = ur.user_id
+		        JOIN role r ON r.role_id = ur.role_id
+		        JOIN user_permission up ON u.user_id = up.user_id
+		        JOIN permission p ON up.permission_id = p.permission_id
+        WHERE
+	        u.username=#{username};
+    </select>
+
+    <select id="getUsername" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            user
+        WHERE
+            username=#{username};
+    </select>
+
+    <insert id="register">
+        INSERT INTO user(username, password, name, email, phone, last_login)
+        VALUES (#{username}, #{password}, #{name}, #{email}, #{phone}, now())
+    </insert>
+
+    <select id="getLastId" resultType="string">
+        SELECT @@identity;
+    </select>
+</mapper>

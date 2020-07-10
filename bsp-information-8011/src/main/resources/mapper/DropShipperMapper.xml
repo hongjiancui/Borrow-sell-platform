@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.info.mapper.DropShipperMapper">
+
+    <select id="getDropShipperByUserId" resultType="com.neusoft.bsp.info.entity.DropShipper">
+        SELECT
+	        *
+        FROM
+	        drop_shipper
+        WHERE
+	        user_id=#{userId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO
+            drop_shipper (name, user_id, create_date, last_update_date)
+        VALUES
+            ("default name", #{userId}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.neusoft.bsp.info.entity.DropShipper">
+        UPDATE drop_shipper
+        <set>
+            <if test="name != null">name=#{name},</if>
+            last_update_date=now()
+        </set>
+        WHERE dsr_id=#{dsrId}
+    </update>
+
+    <select id="getById" resultType="com.neusoft.bsp.info.entity.DropShipper">
+        SELECT
+	        *
+        FROM
+	        drop_shipper
+        WHERE
+	        dsr_id=#{dsrId}
+    </select>
+
+</mapper>

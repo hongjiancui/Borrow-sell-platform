@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.product.mapper.ProductMapper">
+
+    <select id="getProductsByBrandId" resultType="hashmap">
+        SELECT
+	        pro_id, sku_cd, brd_id, man_id, name, model, description, sts_cd
+        FROM
+	        product
+        WHERE
+	        brd_id=#{brdId}
+    </select>
+
+    <select id="getProductCategoryByBrandId" resultType="hashmap">
+        SELECT
+	        p.pro_id, name, pc.category_name
+        FROM
+	        product p JOIN product_category pc ON p.pro_id = pc.pro_id
+        WHERE
+	        p.brd_id=#{brdId}
+    </select>
+
+    <select id="getProductDetail" resultType="hashmap">
+	    SELECT
+	        p.pro_id, p.NAME, p.sku_cd, p.model, p.description, p.warranty_day, p.warranty, pac.width, pac.height,
+	        pac.weight, pac.length, p.retail_price, p.min_retail_price, p.replenishment_period, p.image_url, pc.category_name
+        FROM
+	        product p
+	            JOIN package_info pac ON p.pro_id = pac.pro_id
+	            JOIN product_category pc ON p.pro_id = pc.pro_id
+        WHERE
+	        p.pro_id=#{proId}
+    </select>
+
+    <insert id="addProduct" parameterType="hashmap">
+        INSERT INTO
+            product (brd_id, man_id, sku_cd, name, model, description, warranty_day, retail_price,
+            min_retail_price, sts_cd, replenishment_period, warranty, create_date, last_update_date)
+        VALUES
+            (#{brdId}, #{manId}, #{skuCd}, #{name}, #{model}, #{description}, #{warrantyDay}, #{retailPrice},
+            #{minRetailPrice}, "0", #{replenishmentPeriod}, #{warranty}, now(), now())
+    </insert>
+
+    <select id="getLastProductId" resultType="string">
+        SELECT @@identity;
+    </select>
+
+    <update id="update" parameterType="com.neusoft.bsp.product.entity.Product">
+        UPDATE product
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="skuCd != null">sku_cd=#{skuCd},</if>
+            <if test="model != null">model=#{model},</if>
+            <if test="description != null">description=#{description},</if>
+            last_update_date=now()
+        </set>
+        WHERE pro_id=#{proId}
+    </update>
+
+    <update id="updateDetail" parameterType="hashmap">
+        UPDATE product
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="skuCd != null">sku_cd=#{skuCd},</if>
+            <if test="model != null">model=#{model},</if>
+            <if test="retailPrice != null">retail_price=#{retailPrice},</if>
+            <if test="minRetailPrice != null">min_retail_price=#{minRetailPrice},</if>
+            <if test="warrantyDay != null">warranty_day=#{warrantyDay},</if>
+            <if test="replenishmentDay != null">replenishment_day=#{replenishmentDay},</if>
+            <if test="warranty != null">warranty=#{warranty},</if>
+            <if test="description != null">description=#{description},</if>
+            last_update_date=now()
+        </set>
+        WHERE pro_id=#{proId}
+    </update>
+
+    <update id="updateStatus" parameterType="com.neusoft.bsp.product.entity.Product">
+        UPDATE product
+        <set>
+            <if test="stsCd != null">sts_cd=#{stsCd},</if>
+            last_update_date=now()
+        </set>
+        WHERE pro_id=#{proId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM
+            product
+        WHERE
+            pro_id=#{pk}
+    </delete>
+
+    <update id="updateImageUrl" parameterType="string">
+        UPDATE product
+        <set>
+            <if test="imageUrl != null">image_url=#{imageUrl},</if>
+            last_update_date=now()
+        </set>
+        WHERE pro_id=#{proId}
+    </update>
+
+    <select id="getProductsBS" resultType="hashmap">
+        SELECT
+	        pro_id, name, retail_price, min_retail_price, image_url
+        FROM
+	        product
+        WHERE
+	        sts_cd =1
+    </select>
+
+    <select id="getById" resultType="com.neusoft.bsp.product.entity.Product">
+        SELECT
+	        *
+        FROM
+	        product
+        WHERE
+	        pro_id=#{pk}
+    </select>
+
+    <select id="getProductsByManId" resultType="com.neusoft.bsp.product.entity.Product">
+        SELECT
+	        pro_id, sku_cd, brd_id, man_id, name, model, description, sts_cd
+        FROM
+	        product
+        WHERE
+	        man_id=#{manId}
+    </select>
+
+</mapper>

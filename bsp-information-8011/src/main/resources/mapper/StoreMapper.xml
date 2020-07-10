@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.info.mapper.StoreMapper">
+
+    <select id="getStoreByDsrId" resultType="com.neusoft.bsp.info.entity.Store">
+        SELECT
+	        *
+        FROM
+	        store
+        WHERE
+	        dsr_id=#{dsrId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO
+            store (dsr_id, platform_type, store_name, store_sts_cd, create_date, last_update_date, sts_dc)
+        VALUES
+            (#{dsrId}, #{platformType}, #{storeName}, "1", now(), now(), "no info")
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM
+            store
+        WHERE
+            str_id=#{pk}
+    </delete>
+
+    <update id="updateImageUrl" parameterType="string">
+        UPDATE brand
+        <set>
+            <if test="imageUrl != null">image_url=#{imageUrl},</if>
+            last_update_date=now()
+        </set>
+        WHERE str_id=#{strId}
+    </update>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.product.mapper.WishlistMapper">
+
+    <select id="getWishlistByDsrId" resultType="hashmap">
+        SELECT
+	        w.wit_id,
+	        p.pro_id,
+	        p.name,
+	        p.min_retail_price,
+	        p.retail_price,
+	        p.image_url
+        FROM
+	        wishlist w
+	        JOIN product p ON w.pro_id = p.pro_id
+        WHERE
+	        w.dsr_id=#{dsrId}
+    </select>
+
+    <insert id="insert" parameterType="com.neusoft.bsp.product.entity.Wishlist">
+        INSERT INTO
+            wishlist (dsr_id, pro_id, create_date, last_update_date)
+        VALUES
+            (#{dsrId}, #{proId}, now(), now())
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM
+            wishlist
+        WHERE
+            wit_id=#{pk}
+    </delete>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.order.mapper.SalesOrderMapper">
+
+    <sql id="Base_Column_List">
+        sao_id, order_no, order_sts, price, product_amount, create_date
+    </sql>
+
+    <select id="getOrdersByBrdId" resultType="com.neusoft.bsp.order.entity.SalesOrder">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            sales_order
+        WHERE
+            brd_id=#{brdId}
+    </select>
+
+    <select id="getOrdersByDsrId" resultType="com.neusoft.bsp.order.entity.SalesOrder">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            sales_order
+        WHERE
+            dsr_id=#{dsrId}
+    </select>
+
+    <select id="getDetail" resultType="com.neusoft.bsp.order.entity.SalesOrder">
+        SELECT
+            push_date, track_no_date, fulfillment_date, delivery_sts, tracking_no, wsp_name
+        FROM
+            sales_order
+        WHERE
+            sao_id=#{saoId}
+    </select>
+
+    <select id="getById" resultType="com.neusoft.bsp.order.entity.SalesOrder">
+        SELECT
+            *
+        FROM
+            sales_order
+        WHERE
+            sao_id=#{saoId}
+    </select>
+
+
+    <update id="ship">
+        UPDATE sales_order
+        <set>
+            order_sts=4,
+            push_date=now(),
+            track_no_date=now(),
+            fulfillment_date=now(),
+            order_no="SO0000000x",
+            delivery_sts="4",
+            tracking_no=FLOOR(RAND() * 100000000),
+            wsp_name="SF Holding",
+            last_update_date=now()
+        </set>
+        WHERE sao_id=#{saoId}
+    </update>
+
+    <update id="cancel">
+        UPDATE sales_order
+        <set>
+            order_sts=5,
+            cancel_time=now(),
+            last_update_date=now()
+        </set>
+        WHERE sao_id=#{saoId}
+    </update>
+
+    <update id="pay">
+        UPDATE sales_order
+        <set>
+            order_sts=2,
+            payment_date=now(),
+            last_update_date=now()
+        </set>
+        WHERE sao_id=#{saoId}
+    </update>
+
+    <insert id="insert" parameterType="com.neusoft.bsp.order.entity.SalesOrder">
+        INSERT INTO
+            sales_order (brd_id, pro_id, dsr_id, price, product_amount, order_sts, create_date, last_update_date)
+        VALUES
+            (#{brdId}, #{proId}, #{dsrId}, #{price}, #{productAmount}, "1", now(), now())
+    </insert>
+
+</mapper>

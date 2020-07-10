@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.product.mapper.ProductCategoryMapper">
+
+    <insert id="addProductCategory" parameterType="hashmap">
+        INSERT INTO
+            product_category (pro_id, category_name, create_date, last_update_date)
+        VALUES
+            (#{proId}, #{categoryName}, now(), now())
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM
+            product_category
+        WHERE
+            pro_id=#{pk}
+    </delete>
+
+</mapper>

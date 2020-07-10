@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.wallet.mapper.AccountFundMapper">
+    <insert id="insertData">
+        INSERT INTO
+            account_fund (wallet_id, available_money, depositing_money, withdrawing_money,
+            currency, create_date, last_update_date)
+        VALUES
+            (#{walletId}, 0, 0, 0, "RMB", now(), now())
+    </insert>
+
+    <select id="getById" resultType="com.neusoft.bsp.wallet.entity.AccountFund">
+        SELECT
+            *
+        FROM
+            account_fund
+        WHERE
+            wallet_id=#{walletId};
+    </select>
+
+    <update id="recharge">
+        UPDATE account_fund
+        <set>
+            depositing_money=depositing_money+#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="withdraw">
+        UPDATE account_fund
+        <set>
+            available_money=available_money-#{money},
+            withdrawing_money=withdrawing_money+#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="rechargeAudit">
+        UPDATE account_fund
+        <set>
+            depositing_money=depositing_money-#{money},
+            available_money=available_money+#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="rechargeRefuse">
+        UPDATE account_fund
+        <set>
+            depositing_money=depositing_money-#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="withdrawAudit">
+        UPDATE account_fund
+        <set>
+            withdrawing_money=withdrawing_money-#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="withdrawRefuse">
+        UPDATE account_fund
+        <set>
+            withdrawing_money=withdrawing_money-#{money},
+            available_money=available_money+#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="refundBrd">
+        UPDATE account_fund
+        <set>
+            available_money=available_money-#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="refundDsr">
+        UPDATE account_fund
+        <set>
+            available_money=available_money+#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="payBrd">
+        UPDATE account_fund
+        <set>
+            available_money=available_money+#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <update id="payDsr">
+        UPDATE account_fund
+        <set>
+            available_money=available_money-#{money},
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+</mapper>

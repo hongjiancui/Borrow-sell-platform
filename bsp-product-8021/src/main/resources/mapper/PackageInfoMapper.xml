@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.product.mapper.PackageInfoMapper">
+
+    <insert id="addPackageInfo" parameterType="hashmap">
+        INSERT INTO
+            package_info (pro_id, width, height, length, weight, create_date, last_update_date)
+        VALUES
+            (#{proId}, #{width}, #{height}, #{length}, #{weight}, now(), now())
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM
+            package_info
+        WHERE
+            pro_id=#{pk}
+    </delete>
+
+    <update id="updatePackage" parameterType="hashmap">
+        UPDATE package_info
+        <set>
+            <if test="width != null">width=#{width},</if>
+            <if test="height != null">height=#{height},</if>
+            <if test="length != null">length=#{length},</if>
+            <if test="weight != null">weight=#{weight},</if>
+            last_update_date=now()
+        </set>
+        WHERE pro_id=#{proId}
+    </update>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.admin.mapper.CodeMasterMapper">
+
+    <insert id="insert" parameterType="com.neusoft.bsp.admin.entity.CodeMaster">
+        INSERT INTO
+            code_master (code_type, description, type_cd, code_val, create_date, last_update_date)
+        VALUES
+            (#{codeType}, #{description}, #{typeCd}, #{codeVal}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.neusoft.bsp.admin.entity.CodeMaster">
+        UPDATE code_master
+        <set>
+            <if test="codeType != null">code_type=#{codeType},</if>
+            <if test="description != null">description=#{description},</if>
+            <if test="typeCd != null">type_cd=#{typeCd},</if>
+            <if test="codeVal != null">code_val=#{codeVal},</if>
+            last_update_date=now()
+        </set>
+        WHERE cdm_id=#{cdmId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM
+            code_master
+        WHERE
+            cdm_id=#{pk}
+    </delete>
+
+    <select id="getAll" resultType="com.neusoft.bsp.admin.entity.CodeMaster">
+        SELECT
+	        *
+        FROM
+	        code_master
+    </select>
+
+</mapper>

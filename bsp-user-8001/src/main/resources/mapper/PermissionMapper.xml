@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.user.mapper.PermissionMapper">
+
+    <insert id="addPermissionForUser">
+        INSERT INTO user_permission(user_id, permission_id)
+        VALUES  (#{userId}, #{permissionId})
+    </insert>
+
+    <delete id="deletePermissionForUser">
+        DELETE FROM
+            user_permission
+        WHERE
+            user_id=#{userId} and permission_id=#{permissionId}
+    </delete>
+
+    <resultMap id="BaseResultMap" type="com.neusoft.bsp.user.entity.User">
+        <id column="user_id" property="userId"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <association property="role" javaType="com.neusoft.bsp.user.entity.Role">
+            <id property="roleId" column="role_id"/>
+            <result property="name" column="role_name"/>
+        </association>
+        <collection property="permissions" ofType="com.neusoft.bsp.user.entity.Permission">
+            <id property="permissionId" column="permission_id"/>
+            <result property="name" column="permission_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getPermissionsOfUser" resultMap="BaseResultMap">
+        SELECT
+	        u.user_id, u.name, r.role_id, r.name role_name, p.permission_id, p.name permission_name
+        FROM
+	        user u
+		        JOIN user_role ur ON u.user_id = ur.user_id
+		        JOIN role r ON r.role_id = ur.role_id
+		        JOIN user_permission up ON u.user_id = up.user_id
+		        JOIN permission p ON up.permission_id = p.permission_id
+    </select>
+
+</mapper>

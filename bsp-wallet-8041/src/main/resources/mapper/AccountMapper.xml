@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.wallet.mapper.AccountMapper">
+
+    <insert id="insert" parameterType="com.neusoft.bsp.wallet.entity.Account">
+        INSERT INTO
+            account (username, password, status, account_type, create_date, last_update_date)
+        VALUES
+            (#{username}, #{password}, "7", #{accountType}, now(), now())
+    </insert>
+
+    <select id="getUsername" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            account
+        WHERE
+            username=#{username};
+    </select>
+
+    <select id="getLastId" resultType="string">
+        SELECT @@identity;
+    </select>
+
+    <select id="getAccountByUsername" resultType="com.neusoft.bsp.wallet.entity.Account">
+        SELECT
+            *
+        FROM
+            account
+        WHERE
+            username=#{username};
+    </select>
+
+    <update id="update" parameterType="com.neusoft.bsp.wallet.entity.Account">
+        UPDATE account
+        <set>
+            <if test="password != null">password=#{password},</if>
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+    <select id="getWalletIdByUserId" resultType="string">
+        SELECT
+            wallet_id
+        FROM
+            account
+        WHERE
+            user_id=#{userId};
+    </select>
+
+    <update id="binding" parameterType="string">
+        UPDATE account
+        <set>
+            <if test="userId != null">user_id=#{userId},</if>
+            last_update_date=now()
+        </set>
+        WHERE wallet_id=#{walletId}
+    </update>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.wallet.mapper.TransactionAuditMapper">
+    <insert id="insert" parameterType="com.neusoft.bsp.wallet.entity.TransactionAudit">
+        INSERT INTO
+            transaction_audit (transaction_id, operate_money, operate_type,
+                status, create_time, last_update_time)
+        VALUES
+            (#{transactionId}, #{operateMoney}, #{operateType}, #{status}, now(), now())
+    </insert>
+
+    <select id="getTransactionAuditByStatus" resultType="com.neusoft.bsp.wallet.entity.TransactionAudit">
+        SELECT
+	        ta.transaction_audit_id, ta.operate_money, ta.operate_type, ta.create_time, ac.wallet_id, ac.username
+        FROM
+	        transaction_audit ta
+	            JOIN transaction_record tr ON ta.transaction_id = tr.transaction_id
+	            JOIN account ac ON tr.wallet_id = ac.wallet_id
+        WHERE
+	        ta.`status` =1
+    </select>
+
+    <select id="getById" resultType="com.neusoft.bsp.wallet.entity.TransactionAudit">
+        SELECT
+	        *
+        FROM
+	        transaction_audit
+        WHERE
+	        transaction_audit_id = #{pk}
+    </select>
+
+    <update id="updateStatus">
+        UPDATE transaction_audit
+        <set>
+            <if test="status != null">`status`=#{status},</if>
+        </set>
+        WHERE transaction_audit_id=#{taId}
+    </update>
+
+</mapper>

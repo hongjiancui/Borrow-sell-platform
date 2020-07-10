@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.info.mapper.ManufacturerMapper">
+
+    <select id="getManufacturersByUserId" resultType="com.neusoft.bsp.info.entity.Manufacturer">
+        SELECT
+	        *
+        FROM
+	        manufacturer
+        WHERE
+	        user_id=#{userId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO
+            manufacturer (user_id, name_en, name_cn, gmc_type, gmc_url, description, create_date, last_update_date)
+        VALUES
+            (#{userId}, #{nameEn}, #{nameCn}, #{gmcType}, #{gmcUrl}, #{description}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.neusoft.bsp.info.entity.Manufacturer">
+        UPDATE manufacturer
+        <set>
+            <if test="nameEn != null">name_en=#{nameEn},</if>
+            <if test="nameCn != null">name_cn=#{nameCn},</if>
+            <if test="description != null">description=#{description},</if>
+            <if test="gmcType != null">gmc_type=#{gmcType},</if>
+            <if test="gmcUrl != null">gmc_url=#{gmcUrl},</if>
+            last_update_date=now()
+        </set>
+        WHERE man_id=#{manId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM
+            manufacturer
+        WHERE
+            man_id=#{pk}
+    </delete>
+
+    <update id="updateImageUrl" parameterType="string">
+        UPDATE manufacturer
+        <set>
+            <if test="imageUrl != null">image_url=#{imageUrl},</if>
+            last_update_date=now()
+        </set>
+        WHERE man_id=#{manId}
+    </update>
+
+</mapper>

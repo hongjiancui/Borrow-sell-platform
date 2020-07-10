@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.bsp.info.mapper.BrandMapper">
+
+    <select id="getBrandsByManId" resultType="com.neusoft.bsp.info.entity.Brand">
+        SELECT
+	        *
+        FROM
+	        brand
+        WHERE
+	        man_id=#{manId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO
+            brand (man_id, name_en, name_cn, create_date, last_update_date)
+        VALUES
+            (#{manId}, #{nameEn}, #{nameCn}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.neusoft.bsp.info.entity.Brand">
+        UPDATE brand
+        <set>
+            <if test="nameEn != null">name_en=#{nameEn},</if>
+            <if test="nameCn != null">name_cn=#{nameCn},</if>
+            last_update_date=now()
+        </set>
+        WHERE brd_id=#{brdId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM
+            brand
+        WHERE
+            brd_id=#{pk};
+    </delete>
+
+    <update id="updateImageUrl" parameterType="string">
+        UPDATE brand
+        <set>
+            <if test="imageUrl != null">image_url=#{imageUrl},</if>
+            last_update_date=now()
+        </set>
+        WHERE brd_id=#{brdId}
+    </update>
+
+    <select id="getById" resultType="com.neusoft.bsp.info.entity.Brand">
+        SELECT
+	        *
+        FROM
+	        brand
+        WHERE
+	        brd_id=#{pk}
+    </select>
+
+    <select id="getBrandUserId" resultType="string">
+        SELECT
+	        m.user_id
+        FROM
+	        brand b
+	            JOIN manufacturer m ON b.man_id = m.man_id
+        WHERE
+	        b.brd_id=#{brdId}
+    </select>
+
+</mapper>
