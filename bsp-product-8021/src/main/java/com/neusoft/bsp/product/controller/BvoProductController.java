@@ -5,6 +5,7 @@ import com.neusoft.bsp.product.entity.Product;
 import com.neusoft.bsp.product.entity.Wishlist;
 import com.neusoft.bsp.product.service.ProductService;
 import com.neusoft.bsp.product.service.WishlistService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,16 +20,19 @@ public class BvoProductController {
     private WishlistService wishlistService;
 
     @RequestMapping(value = "/bvo/product/get", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R getProductsBS() {
         return R.isSuccess().data(productService.getProductsBS());
     }
 
     @RequestMapping(value = "/bvo/product/detail", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R getProductDetail(@RequestParam("proId") String proId) {
         return R.isSuccess().data(productService.getProductDetail(proId));
     }
 
     @RequestMapping(value = "/bvo/wishlist/add", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R addWishlist(@RequestBody Wishlist wishlist) {
         int result = wishlistService.addWishlist(wishlist);
 
@@ -40,6 +44,7 @@ public class BvoProductController {
     }
 
     @RequestMapping(value = "/bvo/wishlist/delete", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R deleteWishlist(@RequestBody Wishlist wishlist) {
         int result = wishlistService.deleteWishlist(wishlist.getWitId());
 
@@ -51,12 +56,8 @@ public class BvoProductController {
     }
 
     @RequestMapping(value = "/bvo/wishlist/get", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R getWishlist(@RequestParam("dsrId") String dsrId) {
         return R.isSuccess().data(wishlistService.getDsrWishlist(dsrId));
-    }
-
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public Product getProduct(@RequestParam("proId") String proId) {
-        return productService.getProduct(proId);
     }
 }

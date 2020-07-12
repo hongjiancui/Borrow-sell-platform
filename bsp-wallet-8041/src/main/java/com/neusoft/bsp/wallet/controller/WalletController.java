@@ -3,6 +3,7 @@ package com.neusoft.bsp.wallet.controller;
 import com.neusoft.bsp.common.base.R;
 import com.neusoft.bsp.wallet.entity.Account;
 import com.neusoft.bsp.wallet.service.WalletService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ public class WalletController {
     private WalletService walletService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public R register(@RequestBody Account account) {
         int usernameResult = walletService.usernameExist(account.getUsername());
         if (usernameResult > 0) {
@@ -30,6 +32,7 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PreAuthorize("isAnonymous()")
     public R login(@RequestBody Account account) {
         Account result = walletService.login(account);
         if (result == null) {
@@ -40,11 +43,13 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/info/get", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public R getWalletInfo(@RequestParam("walletId") String walletId) {
         return R.isSuccess().data(walletService.getWalletInfo(walletId));
     }
 
     @RequestMapping(value = "/info/update", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public R updateWallet(@RequestBody Account account) {
         int result = walletService.updateWallet(account);
         if (result == 0) {
@@ -55,11 +60,13 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/transaction", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public R getTransactions(@RequestParam("walletId") String walletId) {
         return R.isSuccess().data(walletService.getTransactions(walletId));
     }
 
     @RequestMapping(value = "/recharge", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public R recharge(@RequestBody Map<String, String> params) {
         walletService.recharge(params);
 
@@ -67,6 +74,7 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public R withdraw(@RequestBody Map<String, String> params) {
         walletService.withdraw(params);
 

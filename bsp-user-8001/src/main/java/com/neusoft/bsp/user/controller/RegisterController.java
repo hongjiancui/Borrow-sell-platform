@@ -4,6 +4,7 @@ import com.neusoft.bsp.common.base.R;
 import com.neusoft.bsp.user.entity.User;
 import com.neusoft.bsp.user.service.RegisterService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ public class RegisterController {
     private RegisterService registerService;
 
     @GetMapping("/username/exist")
+    @PreAuthorize("isAnonymous()")
     public R usernameExist(@RequestParam("username") String username) {
         int isExist = registerService.getUsername(username);
         Map<String, Integer> returnData = new HashMap<>();
@@ -31,6 +33,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("isAnonymous()")
     public R register(@RequestBody User user) {
         registerService.register(user);
 

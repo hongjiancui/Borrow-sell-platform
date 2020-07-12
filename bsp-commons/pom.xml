@@ -15,7 +15,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-<!--            <optional>true</optional>-->
         </dependency>
 
         <dependency>
@@ -24,24 +23,19 @@
             <version>5.1.0</version>
         </dependency>
 
-        <!--        服务注册/发现-->
+        <!-- 服务注册/发现-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
-        <!--        配置中心来做配置管理-->
+        <!-- 配置中心来做配置管理-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-        <!--aliyun oss sdk-->
-<!--        <dependency>-->
-<!--            <groupId>com.aliyun.oss</groupId>-->
-<!--            <artifactId>aliyun-sdk-oss</artifactId>-->
-<!--            <version>3.10.2</version>-->
-<!--        </dependency>-->
+        <!-- Aliyun OSS -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alicloud-oss</artifactId>

@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
+/*
+* nacos配置中心动态配置网关路由信息
+**/
 @Component
 public class NacosDynamicRouteService implements ApplicationEventPublisherAware {
 

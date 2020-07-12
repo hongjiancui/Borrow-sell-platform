@@ -3,6 +3,7 @@ package com.neusoft.bsp.info.controller;
 import com.neusoft.bsp.common.base.R;
 import com.neusoft.bsp.info.entity.Brand;
 import com.neusoft.bsp.info.service.BrandService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,11 +16,13 @@ public class BrandController {
     private BrandService brandService;
 
     @RequestMapping(value = "/brand/get", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo')")
     public R getBrands(@RequestParam("manId") String manId) {
         return R.isSuccess().data(brandService.getAllBrands(manId));
     }
 
     @RequestMapping(value = "/brand/add", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo')")
     public R addBrand(@RequestBody Brand brand) {
         int result = brandService.addBrand(brand);
 
@@ -31,6 +34,7 @@ public class BrandController {
     }
 
     @RequestMapping(value = "/brand/update", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo')")
     public R updateBrand(@RequestBody Brand brand) {
         int result = brandService.updateBrand(brand);
 
@@ -42,6 +46,7 @@ public class BrandController {
     }
 
     @RequestMapping(value = "/brand/delete", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo')")
     public R deleteBrand(@RequestBody Brand brand) {
         int result = brandService.deleteBrand(brand.getBrdId());
 
@@ -53,6 +58,7 @@ public class BrandController {
     }
 
     @RequestMapping(value = "/brand/image/upload", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo')")
     public R uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("brdId") String brdId){
         if (file.isEmpty()) {
             return R.isFail().msg("please select image!");

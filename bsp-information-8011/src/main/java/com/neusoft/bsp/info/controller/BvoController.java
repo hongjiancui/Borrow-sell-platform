@@ -4,6 +4,7 @@ import com.neusoft.bsp.common.base.R;
 import com.neusoft.bsp.info.entity.Brand;
 import com.neusoft.bsp.info.entity.DropShipper;
 import com.neusoft.bsp.info.service.DropShipperService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,11 +16,13 @@ public class BvoController {
     private DropShipperService dropShipperService;
 
     @RequestMapping(value = "/bvo/get", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R getBvoInfo(@RequestParam("userId") String userId) {
         return R.isSuccess().data(dropShipperService.getDropShipper(userId));
     }
 
     @RequestMapping(value = "/bvo/update", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R updateBvoInfo(@RequestBody DropShipper dropShipper) {
         int result = dropShipperService.updateDropShipper(dropShipper);
 
@@ -31,6 +34,7 @@ public class BvoController {
     }
 
     @RequestMapping(value = "/bvo/add", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R addBvoInfo(@RequestBody DropShipper dropShipper) {
         int result = dropShipperService.addDropShipper(dropShipper);
 

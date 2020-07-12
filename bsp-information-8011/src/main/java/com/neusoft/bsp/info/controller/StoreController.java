@@ -3,6 +3,7 @@ package com.neusoft.bsp.info.controller;
 import com.neusoft.bsp.common.base.R;
 import com.neusoft.bsp.info.entity.Store;
 import com.neusoft.bsp.info.service.StoreService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,11 +16,13 @@ public class StoreController {
     private StoreService storeService;
 
     @RequestMapping(value = "/store/get", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R getStores(@RequestParam("dsrId") String dsrId) {
         return R.isSuccess().data(storeService.getStores(dsrId));
     }
 
     @RequestMapping(value = "/store/add", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R addStore(@RequestBody Store store) {
         int result = storeService.addStore(store);
 
@@ -31,6 +34,7 @@ public class StoreController {
     }
 
     @RequestMapping(value = "/store/delete", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R deleteStore(@RequestBody Store store) {
         int result = storeService.deleteStore(store.getStrId());
 
@@ -42,6 +46,7 @@ public class StoreController {
     }
 
     @RequestMapping(value = "/store/image/upload", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("strId") String strId){
         if (file.isEmpty()) {
             return R.isFail().msg("please select image!");

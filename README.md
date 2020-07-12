@@ -13,8 +13,10 @@ The platform currently contains **seven microservices**:
 - **bsp-wallet**: The microservice for wallet
 - **bsp-admin**: The microservice for admin
 
+Besides, the authority management framework of the system has been set up, which uses Spring Security (OAuth2).
+
 ## To be done
 
-The next step is to build a platform authority management framework, ready to use Shiro to complete this work. Also plan to use Seata for transaction management.
+Planning to use Seata to do the transaction management.
 
-However, there still have many details need to be improved, so, we will do much more test work for the backend and make the performance optimization.
+There still have many details need to be improved, we will do much test work for the backend and make performance optimization.

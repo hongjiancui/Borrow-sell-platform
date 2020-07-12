@@ -6,6 +6,7 @@ import com.neusoft.bsp.common.base.R;
 import com.neusoft.bsp.user.entity.User;
 import com.neusoft.bsp.user.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ public class LoginController {
     @Resource
     private LoginService loginService;
 
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/code")
     public R getCode(HttpServletResponse response, HttpSession session) {
         //HuTool定义图形验证码的长和宽,验证码的位数，干扰线的条数
@@ -41,6 +43,7 @@ public class LoginController {
         return R.isSuccess();
     }
 
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/login")
     public R login(@RequestBody Map<String, String> params, HttpSession session) {
         String username = params.get("username");

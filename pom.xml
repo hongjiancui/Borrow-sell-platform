@@ -15,6 +15,7 @@
         <module>bsp-order-8031</module>
         <module>bsp-wallet-8041</module>
         <module>bsp-admin-8051</module>
+        <module>bsp-oauth-2333</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -82,18 +83,6 @@
         </dependencies>
     </dependencyManagement>
 
-<!--    <build>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <fork>true</fork>-->
-<!--                    <addResources>true</addResources>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
     <build>
         <plugins>
             <plugin>

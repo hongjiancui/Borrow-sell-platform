@@ -3,6 +3,7 @@ package com.neusoft.bsp.order.controller;
 import com.neusoft.bsp.common.base.R;
 import com.neusoft.bsp.order.entity.SalesOrder;
 import com.neusoft.bsp.order.service.SalesOrderService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -16,19 +17,21 @@ public class SalesOrderController {
     private SalesOrderService salesOrderService;
 
     @RequestMapping(value = "/info/get", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public R getOrders(@RequestParam("operation") String operation,
                        @RequestParam("id") String id) {
-
         return R.isSuccess().data(salesOrderService.getOrders(operation, id));
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public R getOrderDetail(@RequestParam("saoId") String saoId) {
         return R.isSuccess().data(salesOrderService.getOrderDetail(saoId));
     }
 
 
     @RequestMapping(value = "/ship", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo')")
     public R ship(@RequestBody SalesOrder salesOrder) {
         int result = salesOrderService.ship(salesOrder.getSaoId());
 
@@ -40,6 +43,7 @@ public class SalesOrderController {
     }
 
     @RequestMapping(value = "/ship/cancel", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo')")
     public R cancel(@RequestBody SalesOrder salesOrder) {
         salesOrderService.cancel(salesOrder.getSaoId());
 
@@ -47,6 +51,7 @@ public class SalesOrderController {
     }
 
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R pay(@RequestBody Map<String, String> params) {
         salesOrderService.pay(params);
 
@@ -54,6 +59,7 @@ public class SalesOrderController {
     }
 
     @RequestMapping(value = "/product/buy", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
     public R buy(@RequestBody SalesOrder salesOrder) {
         int result = salesOrderService.buy(salesOrder);
 
