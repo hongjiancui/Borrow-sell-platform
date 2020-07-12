@@ -4,7 +4,7 @@ The backend repository for Cross-border e-commerce borrow-sell platform.
 
 Backend uses SpringCloud Alibaba (Nacos, Sentinel) to build this distributed microservice platform. The database connection pool uses Druid, file system uses Aliyun OSS to store the image file.
 
-The platform currently contains **seven microservices**:
+The platform currently contains **eight microservices**:
 - **bsp-gateway**: Using SpringCloud Gateway for routing and load balancing
 - **bsp-user**: The microservice for login and register
 - **bsp-product**: The microservice for maintaining the product information of BVO & MVO
@@ -12,11 +12,10 @@ The platform currently contains **seven microservices**:
 - **bsp-information**: The microservice for Maintenance information of brand, company and store
 - **bsp-wallet**: The microservice for wallet
 - **bsp-admin**: The microservice for admin
+- **bsp-oauth**: Provide authorization service
 
 Besides, the authority management framework of the system has been set up, which uses Spring Security (OAuth2).
 
 ## To be done
-
-Planning to use Seata to do the transaction management.
 
 There still have many details need to be improved, we will do much test work for the backend and make performance optimization.
