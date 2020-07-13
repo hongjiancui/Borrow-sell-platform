@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.product.mapper.PackageInfoMapper">
 
+    <cache type="com.neusoft.bsp.product.config.RedisCache"/>
+
     <insert id="addPackageInfo" parameterType="hashmap">
         INSERT INTO
             package_info (pro_id, width, height, length, weight, create_date, last_update_date)

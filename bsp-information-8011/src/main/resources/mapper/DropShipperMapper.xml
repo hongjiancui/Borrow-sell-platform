@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.info.mapper.DropShipperMapper">
 
+    <cache type="com.neusoft.bsp.info.config.RedisCache"/>
+
     <select id="getDropShipperByUserId" resultType="com.neusoft.bsp.info.entity.DropShipper">
         SELECT
 	        *

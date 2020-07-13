@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.product.mapper.WishlistMapper">
 
+    <cache type="com.neusoft.bsp.product.config.RedisCache"/>
+
     <select id="getWishlistByDsrId" resultType="hashmap">
         SELECT
 	        w.wit_id,

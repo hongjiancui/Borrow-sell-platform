@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.admin.mapper.CodeMasterMapper">
-
     <insert id="insert" parameterType="com.neusoft.bsp.admin.entity.CodeMaster">
         INSERT INTO
             code_master (code_type, description, type_cd, code_val, create_date, last_update_date)
@@ -34,5 +33,4 @@
         FROM
 	        code_master
     </select>
-
 </mapper>

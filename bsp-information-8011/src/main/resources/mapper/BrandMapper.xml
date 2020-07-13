@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.info.mapper.BrandMapper">
 
+    <cache type="com.neusoft.bsp.info.config.RedisCache"/>
+
     <select id="getBrandsByManId" resultType="com.neusoft.bsp.info.entity.Brand">
         SELECT
 	        *
@@ -13,9 +15,9 @@
 
     <insert id="insert">
         INSERT INTO
-            brand (man_id, name_en, name_cn, create_date, last_update_date)
+            brand (man_id, name_en, name_cn, create_date, last_update_date, description)
         VALUES
-            (#{manId}, #{nameEn}, #{nameCn}, now(), now())
+            (#{manId}, #{nameEn}, #{nameCn}, now(), now(), #{description})
     </insert>
 
     <update id="update" parameterType="com.neusoft.bsp.info.entity.Brand">
@@ -23,6 +25,7 @@
         <set>
             <if test="nameEn != null">name_en=#{nameEn},</if>
             <if test="nameCn != null">name_cn=#{nameCn},</if>
+            <if test="description != null">description=#{description},</if>
             last_update_date=now()
         </set>
         WHERE brd_id=#{brdId}

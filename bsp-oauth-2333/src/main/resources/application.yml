@@ -10,11 +10,9 @@ spring:
     username: root
     password: 990622
 
-
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.neusoft.bsp.oauth.entity
   configuration:
     map-underscore-to-camel-case: true
-    cache-enabled: true #开启全局二级缓存redis
-    call-setters-on-nulls: true #map空值不传问题
+    call-setters-on-nulls: true

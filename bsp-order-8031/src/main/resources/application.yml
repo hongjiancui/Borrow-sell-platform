@@ -30,12 +30,11 @@ spring:
 
   redis:
     # redis数据库索引（默认为0）
-    database: 0
-    host: 39.106.57.246
+    database: 2
+    host: 39.107.85.90
     port: 6379
     password:
     timeout: 10000
-
     jedis:
       pool:
         max-idle: 8

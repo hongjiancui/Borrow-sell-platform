@@ -4,10 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PackageInfo {
+public class PackageInfo implements Serializable {
+    private static final long serialVersionUID = 1435515995256255188L;
+
     private String pckId;
     private String warId;
     private String proId;

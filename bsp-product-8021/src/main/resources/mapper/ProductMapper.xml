@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.product.mapper.ProductMapper">
 
+    <cache type="com.neusoft.bsp.product.config.RedisCache"/>
+
     <select id="getProductsByBrandId" resultType="hashmap">
         SELECT
 	        pro_id, sku_cd, brd_id, man_id, name, model, description, sts_cd
@@ -101,7 +103,7 @@
 
     <select id="getProductsBS" resultType="hashmap">
         SELECT
-	        pro_id, name, retail_price, min_retail_price, image_url
+	        pro_id, name, retail_price, min_retail_price, image_url, description
         FROM
 	        product
         WHERE

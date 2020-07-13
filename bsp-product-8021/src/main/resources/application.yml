@@ -31,12 +31,11 @@ spring:
   redis:
     # redis数据库索引（默认为0）
     database: 0
-    host: 39.106.57.246
+    host: 39.107.85.90
     port: 6379
     password:
     # redis连接超时时间（单位为毫秒）
     timeout: 10000
-
     jedis:
       pool:
         # 最大空闲连接数（默认为8，负数表示无限）
@@ -47,6 +46,7 @@ spring:
         max-wait: -1
         # 最小空闲连接数（默认为0，该值只有为正数才有作用）
         min-idle: 0
+
   cloud:
     alicloud:
       access-key: LTAI4G9uRgbSYBXcjSuzYvbU

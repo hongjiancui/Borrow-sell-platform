@@ -15,4 +15,5 @@ public class Brand {
     private String createDate;
     private String lastUpdateDate;
     private String imageUrl;
+    private String description;
 }
