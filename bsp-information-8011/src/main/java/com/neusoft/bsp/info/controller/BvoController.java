@@ -34,7 +34,7 @@ public class BvoController {
     }
 
     @RequestMapping(value = "/bvo/add", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('admin', 'bvo')")
+    @PreAuthorize("isAnonymous()")
     public R addBvoInfo(@RequestBody DropShipper dropShipper) {
         int result = dropShipperService.addDropShipper(dropShipper);
 

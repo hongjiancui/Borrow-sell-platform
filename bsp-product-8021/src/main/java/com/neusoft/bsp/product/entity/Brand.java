@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Brand implements Serializable {
-    private static final long serialVersionUID = 1435115995276255188L;
+    private static final long serialVersionUID = 1L;
 
     private String brdId;
     private String manId;

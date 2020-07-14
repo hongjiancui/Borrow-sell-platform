@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PackageInfo implements Serializable {
-    private static final long serialVersionUID = 1435515995256255188L;
+    private static final long serialVersionUID = 1L;
 
     private String pckId;
     private String warId;

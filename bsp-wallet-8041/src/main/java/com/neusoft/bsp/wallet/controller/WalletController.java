@@ -16,7 +16,7 @@ public class WalletController {
     private WalletService walletService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
+    @PreAuthorize("isAnonymous()")
     public R register(@RequestBody Account account) {
         int usernameResult = walletService.usernameExist(account.getUsername());
         if (usernameResult > 0) {
@@ -43,13 +43,13 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/info/get", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
+    @PreAuthorize("isAnonymous()")
     public R getWalletInfo(@RequestParam("walletId") String walletId) {
         return R.isSuccess().data(walletService.getWalletInfo(walletId));
     }
 
     @RequestMapping(value = "/info/update", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
+    @PreAuthorize("isAnonymous()")
     public R updateWallet(@RequestBody Account account) {
         int result = walletService.updateWallet(account);
         if (result == 0) {
@@ -60,13 +60,13 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/transaction", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
+    @PreAuthorize("isAnonymous()")
     public R getTransactions(@RequestParam("walletId") String walletId) {
         return R.isSuccess().data(walletService.getTransactions(walletId));
     }
 
     @RequestMapping(value = "/recharge", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
+    @PreAuthorize("isAnonymous()")
     public R recharge(@RequestBody Map<String, String> params) {
         walletService.recharge(params);
 
@@ -74,7 +74,7 @@ public class WalletController {
     }
 
     @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
+    @PreAuthorize("isAnonymous()")
     public R withdraw(@RequestBody Map<String, String> params) {
         walletService.withdraw(params);
 

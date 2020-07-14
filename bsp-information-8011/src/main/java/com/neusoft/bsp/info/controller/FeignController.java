@@ -28,25 +28,25 @@ public class FeignController {
     private CompanyService companyService;
 
     @RequestMapping(value = "/brand/id", method = RequestMethod.GET)
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo', 'mvo')")
     public Brand getBrandByBrandId(@RequestParam("brdId") String brdId) {
         return brandService.getBrandByBrdId(brdId);
     }
 
     @RequestMapping(value = "/brand/user/id", method = RequestMethod.GET)
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo', 'mvo')")
     public String getBrandUserId(@RequestParam("brdId") String brdId) {
         return brandService.getBrandUserId(brdId);
     }
 
     @RequestMapping(value = "/dsr/id", method = RequestMethod.GET)
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo', 'mvo')")
     public DropShipper getDropShipperByDsrId(@RequestParam("dsrId") String dsrId) {
         return dropShipperService.getDropShipperByDsrId(dsrId);
     }
 
     @RequestMapping(value = "/company/get/feign", method = RequestMethod.GET)
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("hasAnyAuthority('admin', 'bvo', 'mvo')")
     public List<Manufacturer> getCompaniesFeign(@RequestParam("userId") String userId) {
         return companyService.getAllCompanies(userId);
     }

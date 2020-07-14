@@ -49,8 +49,8 @@
         <set>
             order_sts=4,
             push_date=now(),
-            track_no_date=SELECT ADDDATE(now(),1),
-            fulfillment_date=SELECT ADDDATE(now(),2),
+            track_no_date= ADDDATE(now(),1),
+            fulfillment_date= ADDDATE(now(),2),
             order_no="SO0000000x",
             delivery_sts="4",
             tracking_no=FLOOR(RAND() * 100000000),

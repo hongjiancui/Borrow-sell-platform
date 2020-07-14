@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductCategory implements Serializable {
-    private static final long serialVersionUID = 1435515935276255188L;
+    private static final long serialVersionUID = 1L;
 
     private String prcId;
     private String proId;

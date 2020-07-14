@@ -72,8 +72,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int deleteProduct(String proId) {
         int result_1 = productMapper.delete(proId);
-        int result_2 = productMapper.delete(proId);
-        int result_3 = productMapper.delete(proId);
+        int result_2 = productCategoryMapper.delete(proId);
+        int result_3 = packageInfoMapper.delete(proId);
 
         if (result_1 == 0 || result_2 == 0 || result_3 == 0) {
             return 0;

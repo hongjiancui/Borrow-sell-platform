@@ -17,7 +17,7 @@ public class FeignController {
     private ProductService productService;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("hasAnyAuthority('admin', 'mvo', 'bvo')")
     public Product getProduct(@RequestParam("proId") String proId) {
         return productService.getProduct(proId);
     }

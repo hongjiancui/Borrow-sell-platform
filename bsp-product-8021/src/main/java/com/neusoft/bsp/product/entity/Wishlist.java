@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wishlist implements Serializable {
-    private static final long serialVersionUID = 1435515995226255188L;
+    private static final long serialVersionUID = 1L;
 
     private String witId;
     private String dsrId;

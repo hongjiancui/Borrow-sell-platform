@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Manufacturer implements Serializable {
-    private static final long serialVersionUID = 1435515992276255188L;
+    private static final long serialVersionUID = 1L;
 
     private String manId;
     private String userId;
@@ -20,4 +20,6 @@ public class Manufacturer implements Serializable {
     private String gmcUrl;
     private String description;
     private String imageUrl;
+
+
 }
