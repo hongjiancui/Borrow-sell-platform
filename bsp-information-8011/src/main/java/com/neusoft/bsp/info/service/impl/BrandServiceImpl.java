@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public int addBrand(Brand brand) {
-        return brandMapper.insert(brand);
+        return brandMapper.insert(brand) == 0 ? -1 : brandMapper.getLastId();
     }
 
     @Override
@@ -66,4 +66,8 @@ public class BrandServiceImpl implements BrandService {
         return brandMapper.getBrandUserId(brdId);
     }
 
+    @Override
+    public List<String> getAllByUserId(String userId) {
+        return brandMapper.getBrdIdByUserId(userId);
+    }
 }

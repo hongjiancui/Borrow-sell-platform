@@ -14,4 +14,8 @@ public interface BrandMapper extends BaseMapper<String, Brand> {
     int updateImageUrl(@Param("brdId") String brdId, @Param("imageUrl") String imageUrl);
 
     String getBrandUserId(@Param("brdId") String brdId);
+
+    int getLastId();
+
+    List<String> getBrdIdByUserId(@Param("userId") String userId);
 }

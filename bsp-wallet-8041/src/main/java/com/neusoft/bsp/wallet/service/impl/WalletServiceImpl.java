@@ -28,7 +28,7 @@ public class WalletServiceImpl implements WalletService {
     private TransactionRecordMapper transactionRecordMapper;
 
     @Resource
-    TransactionAuditMapper transactionAuditMapper;
+    private TransactionAuditMapper transactionAuditMapper;
 
     @Override
     public int register(Account account) {
@@ -204,7 +204,6 @@ public class WalletServiceImpl implements WalletService {
 
         //获取流水记录
         TransactionAudit ta = transactionAuditMapper.getById(taId);
-        System.out.println(ta);
 
         //更新流水表
         transactionRecordMapper.updateStatus(ta.getTransactionId(), "2");

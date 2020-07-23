@@ -104,6 +104,10 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         salesOrder.setBrdId(product.getBrdId());
         salesOrder.setPrice(product.getMinRetailPrice());
 
+        int rand = (int) (Math.random() * 9000 + 1000);
+        String orderNo = "S00000" + rand;
+        salesOrder.setOrderNo(orderNo);
+
         return salesOrderMapper.insert(salesOrder);
     }
 }

@@ -15,6 +15,10 @@ public class R implements Serializable {
         return new R().status(500).msg("Fail!");
     }
 
+    public static R isBlocked() {
+        return new R().status(444).msg("Too many request, please try again later");
+    }
+
     public R msg(String msg){
         this.setMsg(msg);
         return this;

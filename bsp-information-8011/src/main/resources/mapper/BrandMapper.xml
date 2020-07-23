@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.info.mapper.BrandMapper">
 
-    <cache type="com.neusoft.bsp.info.config.RedisCache"/>
+<!--    <cache type="com.neusoft.bsp.info.config.RedisCache"/>-->
 
     <select id="getBrandsByManId" resultType="com.neusoft.bsp.info.entity.Brand">
         SELECT
@@ -66,4 +66,17 @@
 	        b.brd_id=#{brdId}
     </select>
 
+    <select id="getLastId" resultType="java.lang.Integer">
+        SELECT @@identity;
+    </select>
+
+    <select id="getBrdIdByUserId" resultType="string">
+        SELECT
+	        b.brd_id
+        FROM
+	        manufacturer m
+	        JOIN brand b ON m.man_id = b.man_id
+        WHERE
+	        m.user_id = #{userId}
+    </select>
 </mapper>

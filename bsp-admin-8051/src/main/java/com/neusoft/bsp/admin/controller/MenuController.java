@@ -1,7 +1,9 @@
 package com.neusoft.bsp.admin.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.neusoft.bsp.admin.service.MenuService;
 import com.neusoft.bsp.common.base.R;
+import com.neusoft.bsp.common.handler.CustomerBlockHandler;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ public class MenuController {
 
     @RequestMapping(value = "/menu/get", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('admin')")
+    @SentinelResource(value = "customerBlockHandler", blockHandlerClass = CustomerBlockHandler.class, blockHandler = "handlerException")
     public R getAllMenu() {
         return R.isSuccess().data(menuService.getAllMenu());
     }

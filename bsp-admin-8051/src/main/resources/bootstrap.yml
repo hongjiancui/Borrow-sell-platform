@@ -4,6 +4,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 39.107.85.90:8848
+        server-addr: ip:8848
       config:
-        server-addr: 39.107.85.90:8848
+        server-addr: ip:8848
+    sentinel:
+      transport:
+        dashboard: ip:8858
+        port: 8719

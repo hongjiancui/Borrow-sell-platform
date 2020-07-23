@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.order.mapper.SalesOrderMapper">
 
-    <cache type="com.neusoft.bsp.order.config.RedisCache"/>
+<!--    <cache type="com.neusoft.bsp.order.config.RedisCache"/>-->
 
     <sql id="Base_Column_List">
-        sao_id, order_no, order_sts, price, product_amount, create_date
+        sao_id, order_no, order_sts, price, product_amount, create_date, pro_id
     </sql>
 
     <select id="getOrdersByBrdId" resultType="com.neusoft.bsp.order.entity.SalesOrder">
@@ -51,7 +51,6 @@
             push_date=now(),
             track_no_date= ADDDATE(now(),1),
             fulfillment_date= ADDDATE(now(),2),
-            order_no="SO0000000x",
             delivery_sts="4",
             tracking_no=FLOOR(RAND() * 100000000),
             wsp_name="SF Holding",
@@ -82,9 +81,9 @@
 
     <insert id="insert" parameterType="com.neusoft.bsp.order.entity.SalesOrder">
         INSERT INTO
-            sales_order (brd_id, pro_id, dsr_id, price, product_amount, order_sts, create_date, last_update_date)
+            sales_order (brd_id, pro_id, dsr_id, price, product_amount, order_sts, create_date, last_update_date, order_no)
         VALUES
-            (#{brdId}, #{proId}, #{dsrId}, #{price}, #{productAmount}, "1", now(), now())
+            (#{brdId}, #{proId}, #{dsrId}, #{price}, #{productAmount}, "1", now(), now(), #{orderNo})
     </insert>
 
 </mapper>

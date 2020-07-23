@@ -1,7 +1,6 @@
 package com.neusoft.bsp.info.controller;
 
 import com.neusoft.bsp.common.base.R;
-import com.neusoft.bsp.info.entity.Brand;
 import com.neusoft.bsp.info.entity.DropShipper;
 import com.neusoft.bsp.info.service.DropShipperService;
 import org.springframework.security.access.prepost.PreAuthorize;

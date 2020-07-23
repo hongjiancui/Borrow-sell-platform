@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neusoft.bsp.info.mapper.ManufacturerMapper">
 
-    <cache type="com.neusoft.bsp.info.config.RedisCache"/>
+<!--    <cache type="com.neusoft.bsp.info.config.RedisCache"/>-->
 
     <select id="getManufacturersByUserId" resultType="com.neusoft.bsp.info.entity.Manufacturer">
         SELECT
@@ -49,4 +49,7 @@
         WHERE man_id=#{manId}
     </update>
 
+    <select id="getLastId" resultType="java.lang.Integer">
+        SELECT @@identity;
+    </select>
 </mapper>

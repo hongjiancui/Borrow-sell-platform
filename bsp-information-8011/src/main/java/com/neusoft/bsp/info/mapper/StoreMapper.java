@@ -12,4 +12,6 @@ public interface StoreMapper extends BaseMapper<String, Store> {
     List<Store> getStoreByDsrId(@Param("dsrId") String dsrId);
 
     int updateImageUrl(@Param("strId") String strId, @Param("imageUrl") String imageUrl);
+
+    int getLastId();
 }

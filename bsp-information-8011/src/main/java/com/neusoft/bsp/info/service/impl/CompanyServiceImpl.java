@@ -26,7 +26,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public int addCompany(Manufacturer manufacturer) {
-        return manufacturerMapper.insert(manufacturer);
+        return manufacturerMapper.insert(manufacturer) == 0 ? -1 : manufacturerMapper.getLastId();
     }
 
     @Override

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequestMapping("/info")
 @RestController
@@ -26,11 +28,13 @@ public class StoreController {
     public R addStore(@RequestBody Store store) {
         int result = storeService.addStore(store);
 
-        if (result == 0) {
+        if (result == -1) {
             return R.isFail().msg("fail to add");
         }
 
-        return R.isSuccess();
+        Map<String, String> returnData = new HashMap<>();
+        returnData.put("strId", String.valueOf(result));
+        return R.isSuccess().data(returnData);
     }
 
     @RequestMapping(value = "/store/delete", method = RequestMethod.POST)

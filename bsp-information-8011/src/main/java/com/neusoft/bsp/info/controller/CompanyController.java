@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/info")
 @RestController
@@ -27,11 +29,13 @@ public class CompanyController {
     public R addCompany(@RequestBody Manufacturer manufacturer) {
         int result = companyService.addCompany(manufacturer);
 
-        if (result == 0) {
+        if (result == -1) {
             return R.isFail().msg("fail to add");
         }
 
-        return R.isSuccess();
+        Map<String, String> returnData = new HashMap<>();
+        returnData.put("manId", String.valueOf(result));
+        return R.isSuccess().data(returnData);
     }
 
     @RequestMapping(value = "/company/update", method = RequestMethod.POST)

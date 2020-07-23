@@ -12,4 +12,6 @@ public interface ManufacturerMapper extends BaseMapper<String, Manufacturer> {
     List<Manufacturer> getManufacturersByUserId(@Param("userId") String userId);
 
     int updateImageUrl(@Param("manId") String manId, @Param("imageUrl") String imageUrl);
+
+    int getLastId();
 }

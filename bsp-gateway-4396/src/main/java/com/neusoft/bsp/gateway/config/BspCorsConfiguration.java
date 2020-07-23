@@ -21,8 +21,9 @@ public class BspCorsConfiguration {
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setMaxAge((long) 3600);
 
-        source.registerCorsConfiguration("/**",corsConfiguration);
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsWebFilter(source);
     }
 }

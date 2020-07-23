@@ -2,6 +2,8 @@
 The backend repository for Cross-border e-commerce borrow-sell platform.
 ![](https://pic-cui-0622.oss-cn-beijing.aliyuncs.com/img/20200711010703.png)
 
+## Have done
+
 Backend uses SpringCloud Alibaba (Nacos, Sentinel) to build this distributed microservice platform. The database connection pool uses Druid, file system uses Aliyun OSS to store the image file.
 
 The platform currently contains **eight microservices**:
@@ -16,6 +18,14 @@ The platform currently contains **eight microservices**:
 
 Besides, the authority management framework of the system has been set up, which uses Spring Security (OAuth2).
 
+Using redis as the 2-level of mybatis cache.
+
+Using aop to do the global exception handling and request/response logging intercepting.
+
+Have done all the tests of backend services.
+
+Using docker to deploy the backend services.
+
 ## To be done
 
-There still have many details need to be improved, we will do much test work for the backend and make performance optimization.
+Dealing with some details about the business logic, making the performance of this system better.

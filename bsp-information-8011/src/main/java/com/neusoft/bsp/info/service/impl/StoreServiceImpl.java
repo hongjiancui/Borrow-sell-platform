@@ -26,7 +26,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public int addStore(Store store) {
-        return storeMapper.insert(store);
+        return storeMapper.insert(store) == 0 ? -1 : storeMapper.getLastId();
     }
 
     @Override

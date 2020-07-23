@@ -53,10 +53,10 @@ public class ProductServiceImpl implements ProductService {
         int result_3 = packageInfoMapper.addPackageInfo(params);
 
         if (result_1 == 0 || result_2 == 0 || result_3 == 0) {
-            return 0;
+            return -1;
         }
 
-        return 1;
+        return Integer.parseInt(proId);
     }
 
     @Override

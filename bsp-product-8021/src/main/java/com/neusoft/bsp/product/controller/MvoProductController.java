@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 @RequestMapping("/pro")
@@ -40,11 +41,13 @@ public class MvoProductController {
     public R addProduct(@RequestBody Map<String, String> params) {
         int result = productService.addProduct(params);
 
-        if (result == 0) {
+        if (result == -1) {
             return R.isFail().msg("fail to add");
         }
 
-        return R.isSuccess();
+        Map<String, String> returnData = new HashMap<>();
+        returnData.put("proId", String.valueOf(result));
+        return R.isSuccess().data(returnData);
     }
 
     @RequestMapping(value = "/mvo/product/update", method = RequestMethod.POST)

@@ -19,4 +19,6 @@ public interface BrandService {
     Brand getBrandByBrdId(String brdId);
 
     String getBrandUserId(String brdId);
+
+    List<String> getAllByUserId(String userId);
 }
